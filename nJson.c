@@ -3,7 +3,7 @@
 #include "nJson.h"
 
 Njson* njson_init(Njson* this, char* key, void* value, unsigned tam) {
-	this->key = key;
+	strcpy(this->key, key);
 	return njson_set_value(this, value, tam);
 }
 
