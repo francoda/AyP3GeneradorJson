@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "Json.h"
 
 int main(int argc, char** argv) {
 	char* path = 0x0;
@@ -18,11 +19,8 @@ int main(int argc, char** argv) {
 	} else {
 		printf("Modo archivo: %s \n", path);
 	}
-    return 1;
 
-// Posible uso de primitivas
-//	Json j;
-//	njson_set_data(json_get_by_prop(j, "size"));
-//	njson_set_data(json_get_by_prop((Json*)(json_get_by_prop(j, "contents")->data), "size"));
 
+
+    return 0;
 }
