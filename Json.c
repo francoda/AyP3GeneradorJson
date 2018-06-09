@@ -28,10 +28,9 @@ Json* json_imprimir(Json* this) {
 }
 
 Njson* json_get_by_prop(Json* this, char* prop){
-	for(unsigned i = 0; i < this->elems * sizeof(Njson); i += sizeof(Njson)){
-		if (strcmp((*(this->nodos + i))->key,prop)) {
-			return this->nodos + i;
-		}
+	for(unsigned i = 0; i < this->elems; i++){
+		if (strcmp(this->nodos[i]->key,prop))
+			return this->nodos[i];
 	}
 	return 0x0;
 }
@@ -39,8 +38,8 @@ Njson* json_get_by_prop(Json* this, char* prop){
 Json* json_add(Json* this, Njson* new){
 	if (new != 0x0){
 		this->elems += 1;
-		this->nodos = realloc(this->nodos, this->elems * sizeof(Njson));
-		memcpy(this->nodos + (this->elems - 1) * sizeof(Njson), new, sizeof(Njson));
+		this->nodos = (Njson**)realloc(this->nodos, this->elems * sizeof(Njson));
+		this->nodos[this->elems - 1] = new;
 	}
 	return this;
 }
