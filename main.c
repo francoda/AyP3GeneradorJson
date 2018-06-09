@@ -13,6 +13,9 @@ int main(int argc, char** argv) {
 			//path={dir de ejecucion}+{nombre archivo}
 			path = strcat(argv[0],argv[i+1]);
 		}
+		if (!strcmp(argv[i],"-c")) {
+			//Crear otro JSON y mostrarlo en la salida utlizando el parámetro (Provicional)
+		}
 	}
 	/* Test Modo de impresion */
 	if (path == 0x0)
