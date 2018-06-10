@@ -18,6 +18,7 @@ void njson_imprimir_string(void* value);
 void njson_imprimir_int(void* value);
 void njson_imprimir_double(void* value);
 void njson_imprimir_boolean(void* value);
+void njson_imprimir_json(void* value);
 Njson* njson_set_value(Njson* this, void* value, unsigned tam_type, unsigned count_elem, void (*print_nj)(void* this));
 
 #endif /* NJSON_H_ */

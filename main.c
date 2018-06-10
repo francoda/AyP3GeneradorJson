@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
 	}
 	/* Test Modo de impresion */
 	if (path == 0x0)
-		printf("Modo impresión \n");
+		printf("Modo impresión: \n");
 	else
 		printf("Modo archivo: %s \n", path);
 
@@ -33,44 +33,68 @@ int main(int argc, char** argv) {
 
 	Njson* no2[2] = {&nodo1, &nodo2};
 	json_init(&js, no2, 2);
-
 	json_imprimir(&js);
+	printf("\n");
 
 	int numeros[4] = { 34 , 14, 79, 101 };
 	njson_set_value(&nodo2, numeros, sizeof(int), 4, &njson_imprimir_int);
 	json_imprimir(&js);
+	printf("\n");
 
 	njson_set_value(&nodo2, "Maxi", sizeof(char*), 1, &njson_imprimir_string);
 	json_imprimir(&js);
+	printf("\n");
 
-	Njson* prop = json_get_by_prop(&js, "name");
-	printf("%p\n", prop);
+	//Njson* prop = json_get_by_prop(&js, "name");
+	//printf("%p\n", prop);
 	//njson_imprimir(prop);
 
 	double decimal = 10.8;
 	njson_set_value(&nodo2, &decimal, sizeof(double), 1, &njson_imprimir_double);
 	json_imprimir(&js);
+	printf("\n");
 
 	bool boolean = true;
 	njson_set_value(&nodo2, &boolean, sizeof(bool), 1, &njson_imprimir_boolean);
 	json_imprimir(&js);
+	printf("\n");
 
 	int otroNumero = 14;
 	Njson nodo3;
 	njson_init(&nodo3, "other_number", &otroNumero, sizeof(int), 1, &njson_imprimir_int);
 	json_add(&js, &nodo3);
 	json_imprimir(&js);
+	printf("\n");
 
 	char* surname = "Andreoli";
 	Njson nodo4;
 	njson_init(&nodo4, "surname", surname, sizeof(char*), 1, &njson_imprimir_string);
 	json_add(&js, &nodo4);
 	json_imprimir(&js);
+	printf("\n");
 
 	Njson nodo5;
 	njson_init(&nodo5, "numbers_again", numeros, sizeof(int), 4, &njson_imprimir_int);
 	json_add(&js, &nodo5);
 	json_imprimir(&js);
+	printf("\n");
+
+	njson_set_value(&nodo5, &decimal, sizeof(double), 1, &njson_imprimir_double);
+	json_imprimir(&js);
+	printf("\n");
+
+	Njson nodo7;
+	char* genero = "Rock";
+	njson_init(&nodo7, "genre", genero, sizeof(char*), 1, &njson_imprimir_string);
+
+	Njson* no3[1] = { &nodo7 };
+	Json js2;
+	json_init(&js2, no3, 1);
+	Njson nodo6;
+	njson_init(&nodo6, "music", &js2, sizeof(Json), 1, &njson_imprimir_json);
+	json_add(&js, &nodo6);
+	json_imprimir(&js);
+	printf("\n");
 
     return 0;
 }

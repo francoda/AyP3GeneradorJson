@@ -23,7 +23,7 @@ Json* json_imprimir(Json* this) {
 		if (i != 0) printf(" , ");
 		njson_imprimir(this->nodos[i]);
 	}
-	printf(" }\n");
+	printf(" }");
 	return this;
 }
 

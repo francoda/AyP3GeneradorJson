@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "nJson.h"
+#include "Json.h"
 
 Njson* njson_init(Njson* this, char* key, void* value, unsigned tam_type, unsigned count_elem, void (*print_nj)(void* this)) {
 	this->key = (char*)malloc(strlen(key) + 1);
@@ -53,6 +54,10 @@ void njson_imprimir_double(void* value) {
 
 void njson_imprimir_boolean(void* value) {
 	printf("%s", *(bool*)value ? "true" : "false");
+}
+
+void njson_imprimir_json(void* value){
+	json_imprimir((Json*)value);
 }
 
 Njson* njson_set_value(Njson* this, void* value, unsigned size_type, unsigned count_elem, void (*print_nj)(void* this)) {
