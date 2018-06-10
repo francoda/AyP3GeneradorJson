@@ -75,5 +75,16 @@ int main(int argc, char** argv) {
 	json_add(&js, &nodo5);
 	json_imprimir(&js);
 
+	Njson nodo7;
+	char* rev = "38af1b183490";
+	njson_init(&nodo7, "rev", rev, sizeof(char*), 1, &njson_imprimir_string);
+	Njson* no3[2] = {&nodo7};
+	Json js2;
+	json_init(&js2, no3, 1);
+	Njson nodo6;
+	njson_init(&nodo6, "content", &js2, sizeof(Json*), 1, &njson_imprimir_json);
+	json_add(&js, &nodo6);
+	json_imprimir(&js);
+
     return 0;
 }
