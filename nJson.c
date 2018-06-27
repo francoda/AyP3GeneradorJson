@@ -56,7 +56,7 @@ void njson_imprimir_boolean(void* value) {
 	printf("%s", *(bool*)value ? "true" : "false");
 }
 
-void njson_imprimir_json(void* value){
+void njson_imprimir_json(void* value) {
 	json_imprimir((Json*)value);
 }
 

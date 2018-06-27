@@ -13,6 +13,9 @@ int main(int argc, char** argv) {
 			//path={dir de ejecucion}+{nombre archivo}
 			path = strcat(argv[0],argv[i+1]);
 		}
+		if (!strcmp(argv[i],"-c")) {
+			//Crear otro JSON y mostrarlo en la salida utlizando el parámetro (Provicional)
+		}
 	}
 	/* Test Modo de impresion */
 	if (path == 0x0)
@@ -87,9 +90,9 @@ int main(int argc, char** argv) {
 	char* genero = "Rock";
 	njson_init(&nodo7, "genre", genero, sizeof(char*), 1, &njson_imprimir_string);
 
-	Njson* no3[1] = { &nodo7 };
+	Njson* no3[2] = { &nodo7, &nodo3 };
 	Json js2;
-	json_init(&js2, no3, 1);
+	json_init(&js2, no3, 2);
 	Njson nodo6;
 	njson_init(&nodo6, "music", &js2, sizeof(Json), 1, &njson_imprimir_json);
 	json_add(&js, &nodo6);
