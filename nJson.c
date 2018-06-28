@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 #include "nJson.h"
 #include "Json.h"
 
-Njson* njson_init(Njson* this, char* key, void* value, unsigned size_type, unsigned count_elem, void (*print_nj)(void* this), bool is_array) {
+Njson* njson_init(Njson* this, char* key, void* value, unsigned size_type, unsigned count_elem, void (*print_nj)(void* this, FILE* out), bool is_array) {
 	this->key = (char*)malloc(strlen(key) + 1);
 	strcpy(this->key, key);
 	this->value = malloc(size_type * count_elem);
@@ -26,42 +26,42 @@ void njson_release(Njson* this)  {
 	this->print_nj = 0x0;
 }
 
-void njson_imprimir(Njson* this) {
-	printf("\"%s\": ", this->key);
+void njson_imprimir(Njson* this, FILE* out) {
+	fprintf(out, "\"%s\": ", this->key);
 	if (this->is_array == 0) {
-		(*(this->print_nj))(this->value);
+		(*(this->print_nj))(this->value, out);
 	} else {
-		printf("[ ");
+		fprintf(out, "[ ");
 		unsigned tamArray = this->size_type * this->count_elem;
 		for (unsigned i = 0; i < tamArray; i += this->size_type) {
-			if (i != 0) printf(" , ");
-			(*(this->print_nj))(this->value + i);
+			if (i != 0) fprintf(out, " , ");
+			(*(this->print_nj))(this->value + i, out);
 		}
-		printf(" ]");
+		fprintf(out, " ]");
 	}
 }
 
-void njson_imprimir_string(void* value) {
-	printf("\"%s\"", (char*)value);
+void njson_imprimir_string(void* value, FILE* out) {
+	fprintf(out, "\"%s\"", (char*)value);
 }
 
-void njson_imprimir_int(void* value) {
-	printf("%d", *(int*)value);
+void njson_imprimir_int(void* value, FILE* out) {
+	fprintf(out, "%d", *(int*)value);
 }
 
-void njson_imprimir_double(void* value) {
-	printf("%f", *(double*)value);
+void njson_imprimir_double(void* value, FILE* out) {
+	fprintf(out, "%f", *(double*)value);
 }
 
-void njson_imprimir_boolean(void* value) {
-	printf("%s", *(bool*)value ? "true" : "false");
+void njson_imprimir_boolean(void* value, FILE* out) {
+	fprintf(out, "%s", *(bool*)value ? "true" : "false");
 }
 
-void njson_imprimir_json(void* value) {
-	json_imprimir((Json*)value);
+void njson_imprimir_json(void* value, FILE* out) {
+	json_imprimir((Json*)value, out);
 }
 
-Njson* njson_set_value(Njson* this, void* value, unsigned size_type, unsigned count_elem, void (*print_nj)(void* this), bool is_array) {
+Njson* njson_set_value(Njson* this, void* value, unsigned size_type, unsigned count_elem, void (*print_nj)(void* this, FILE* out), bool is_array) {
 	this->size_type = size_type;
 	this->count_elem = count_elem;
 	this->print_nj = print_nj;

@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <string.h>
 #include "Json.h"
 
 Json* json_init(Json* this, Njson** nodos, unsigned elems) {
@@ -17,13 +19,13 @@ void json_release(Json* this) {
 	this->nodos = 0x0;
 }
 
-Json* json_imprimir(Json* this) {
-	printf("{ ");
+Json* json_imprimir(Json* this, FILE* out) {
+	fprintf(out, "{ ");
 	for(unsigned i = 0; i < this->elems; i++){
-		if (i != 0) printf(" , ");
-		njson_imprimir(this->nodos[i]);
+		if (i != 0) fprintf(out, " , ");
+		njson_imprimir(this->nodos[i], out);
 	}
-	printf(" }");
+	fprintf(out, " }");
 	return this;
 }
 
