@@ -4,14 +4,15 @@
 #include "nJson.h"
 #include "Json.h"
 
-Njson* njson_init(Njson* this, char* key, void* value, unsigned tam_type, unsigned count_elem, void (*print_nj)(void* this)) {
+Njson* njson_init(Njson* this, char* key, void* value, unsigned size_type, unsigned count_elem, void (*print_nj)(void* this), bool is_array) {
 	this->key = (char*)malloc(strlen(key) + 1);
 	strcpy(this->key, key);
-	this->value = malloc(tam_type * count_elem);
-	memcpy(this->value, value, tam_type * count_elem);
+	this->value = malloc(size_type * count_elem);
+	memcpy(this->value, value, size_type * count_elem);
 	this->print_nj = print_nj;
-	this->size_type = tam_type;
+	this->size_type = size_type;
 	this->count_elem = count_elem;
+	this->is_array = is_array;
 	return this;
 }
 
@@ -27,7 +28,7 @@ void njson_release(Njson* this)  {
 
 void njson_imprimir(Njson* this) {
 	printf("\"%s\": ", this->key);
-	if (this->count_elem == 1) {
+	if (this->is_array == 0) {
 		(*(this->print_nj))(this->value);
 	} else {
 		printf("[ ");
@@ -60,10 +61,11 @@ void njson_imprimir_json(void* value) {
 	json_imprimir((Json*)value);
 }
 
-Njson* njson_set_value(Njson* this, void* value, unsigned size_type, unsigned count_elem, void (*print_nj)(void* this)) {
+Njson* njson_set_value(Njson* this, void* value, unsigned size_type, unsigned count_elem, void (*print_nj)(void* this), bool is_array) {
 	this->size_type = size_type;
 	this->count_elem = count_elem;
 	this->print_nj = print_nj;
+	this->is_array = is_array;
 	this->value = realloc(this->value, size_type * count_elem);
 	memcpy(this->value, value, size_type * count_elem);
 	return this;
