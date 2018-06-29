@@ -22,7 +22,7 @@ void json_release(Json* this) {
 Json* json_imprimir(Json* this, FILE* out) {
 	fprintf(out, "{ ");
 	for(unsigned i = 0; i < this->elems; i++){
-		if (i != 0) fprintf(out, " , ");
+		if (i != 0) fprintf(out, ", ");
 		njson_imprimir(this->nodos[i], out);
 	}
 	fprintf(out, " }");

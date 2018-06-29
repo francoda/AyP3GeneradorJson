@@ -28,7 +28,7 @@ void njson_release(Njson* this)  {
 
 void njson_imprimir(Njson* this, FILE* out) {
 	fprintf(out, "\"%s\": ", this->key);
-	if (this->is_array == 0) {
+	if (!this->is_array) {
 		(*(this->print_nj))(this->value, out);
 	} else {
 		fprintf(out, "[ ");
