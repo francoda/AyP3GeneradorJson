@@ -5,19 +5,6 @@
 #include "nJson.h"
 #include "Json.h"
 
-int main(int argc, char** argv) {
-	for (int i=0;i<argc;i++) {
-		if (!strcmp(argv[i],"-f") && i+1<argc) {
-			FILE* out = fopen(argv[i+1], "w");
-			test(out);
-			fclose(out);
-		} else if (!strcmp(argv[i],"-c")) {
-			test(stdout);
-		}
-	}
-	return 0;
-}
-
 void test(FILE* out) {
 	Json js;
 	Json js2;
@@ -163,4 +150,17 @@ void test(FILE* out) {
 
 	json_imprimir(&js, out);
 	json_release(&js);
+}
+
+int main(int argc, char** argv) {
+	for (int i=0;i<argc;i++) {
+		if (argc == 1 || !strcmp(argv[i],"-c")) {
+			test(stdout);
+		} else if (!strcmp(argv[i],"-f") && i+1<argc) {
+			FILE* out = fopen(argv[i+1], "w");
+			test(out);
+			fclose(out);
+		}
+	}
+	return 0;
 }
