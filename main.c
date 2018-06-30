@@ -149,6 +149,21 @@ void test(FILE* out) {
 	json_add(&js, &nodo25);
 
 	json_print(&js, out);
+
+	// --- Modificamos el dato almacenado en 'contents'.
+	//int new_contents = 1;
+	//json_set_value_by_key(&js, "contents", &new_contents, sizeof(int), 1, &njson_print_int, false);
+	//printf("\n");
+	//json_print(&js, out);
+
+	// --- Agregamos un nuevo nodo al json raíz.
+	//int enteros[3] = {1,2,3};
+	//Njson nodo50;
+	//njson_init(&nodo50, "enteros", &enteros, sizeof(int), 3, &njson_print_int, true);
+	//json_add(&js, &nodo50);
+	//printf("\n");
+	//json_print(&js, out);
+
 	json_release(&js);
 }
 
