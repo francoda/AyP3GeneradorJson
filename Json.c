@@ -29,9 +29,9 @@ Json* json_imprimir(Json* this, FILE* out) {
 	return this;
 }
 
-Njson* json_get_by_prop(Json* this, char* prop){
+Njson* json_get_njson_by_key(Json* this, char* key){
 	for(unsigned i = 0; i < this->elems; i++){
-		if (strcmp(this->nodos[i]->key,prop))
+		if (strcmp(this->nodos[i]->key,key))
 			return this->nodos[i];
 	}
 	return 0x0;
