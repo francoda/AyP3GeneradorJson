@@ -19,11 +19,11 @@ void json_release(Json* this) {
 	this->nodos = 0x0;
 }
 
-Json* json_imprimir(Json* this, FILE* out) {
+Json* json_print(Json* this, FILE* out) {
 	fprintf(out, "{ ");
 	for(unsigned i = 0; i < this->elems; i++){
 		if (i != 0) fprintf(out, ", ");
-		njson_imprimir(this->nodos[i], out);
+		njson_print(this->nodos[i], out);
 	}
 	fprintf(out, " }");
 	return this;
@@ -31,10 +31,17 @@ Json* json_imprimir(Json* this, FILE* out) {
 
 Njson* json_get_njson_by_key(Json* this, char* key){
 	for(unsigned i = 0; i < this->elems; i++){
-		if (strcmp(this->nodos[i]->key,key))
+		if (strcmp(this->nodos[i]->key, key) == 0)
 			return this->nodos[i];
 	}
 	return 0x0;
+}
+
+Njson* json_set_value_by_key(Json* this, char* key, void* value, unsigned size_type, unsigned count_elem, void (*print_nj)(void* this, FILE* out), bool is_array){
+	Njson* node = json_get_njson_by_key(this, key);
+	printf("%d", *(int*)node->value);
+	if (node == 0x0) return 0x0;
+	return njson_set_value(node, value, size_type, count_elem, print_nj, is_array);
 }
 
 Json* json_add(Json* this, Njson* new){
