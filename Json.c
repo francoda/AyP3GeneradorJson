@@ -39,7 +39,6 @@ Njson* json_get_njson_by_key(Json* this, char* key){
 
 Njson* json_set_value_by_key(Json* this, char* key, void* value, unsigned size_type, unsigned count_elem, void (*print_nj)(void* this, FILE* out), bool is_array){
 	Njson* node = json_get_njson_by_key(this, key);
-	printf("%d", *(int*)node->value);
 	if (node == 0x0) return 0x0;
 	return njson_set_value(node, value, size_type, count_elem, print_nj, is_array);
 }
